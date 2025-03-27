@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuroiTech - Eye Care Digital Solutions</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+        }
+        
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo-container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo-image {
+            max-width: 80%;
+            height: auto;
+            max-height: 60vh;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeInLogo 1.5s ease-out 1.5s forwards;
+        }
+        
+        @keyframes fadeInLogo {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            z-index: 1;
+        }
+        
+        #red-circle {
+            background: radial-gradient(circle, rgba(232,78,27,0.8) 0%, rgba(232,78,27,0) 70%);
+            animation: pulseRed 3s ease-out 0.2s forwards;
+        }
+        
+        #blue-circle {
+            background: radial-gradient(circle, rgba(46,75,153,0.8) 0%, rgba(46,75,153,0) 70%);
+            animation: pulseBlue 3s ease-out 0.4s forwards;
+        }
+        
+        #green-circle {
+            background: radial-gradient(circle, rgba(0,146,69,0.8) 0%, rgba(0,146,69,0) 70%);
+            animation: pulseGreen 3s ease-out 0.6s forwards;
+        }
+        
+        #yellow-circle {
+            background: radial-gradient(circle, rgba(247,148,29,0.8) 0%, rgba(247,148,29,0) 70%);
+            animation: pulseYellow 3s ease-out 0.8s forwards;
+        }
+        
+        @keyframes pulseRed {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0.3;
+                transform: scale(1.1);
+            }
+        }
+        
+        @keyframes pulseBlue {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0.3;
+                transform: scale(1.1);
+            }
+        }
+        
+        @keyframes pulseGreen {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0.3;
+                transform: scale(1.1);
+            }
+        }
+        
+        @keyframes pulseYellow {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0.3;
+                transform: scale(1.1);
+            }
+        }
+        
+        .particle-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 5;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            opacity: 0;
+        }
+        
+        .red-particle {
+            background-color: rgba(232,78,27,0.6);
+        }
+        
+        .blue-particle {
+            background-color: rgba(46,75,153,0.6);
+        }
+        
+        .green-particle {
+            background-color: rgba(0,146,69,0.6);
+        }
+        
+        .yellow-particle {
+            background-color: rgba(247,148,29,0.6);
+        }
+    </style>
+    <script>
+        // Redirect to sidebar.html after 7 seconds
+        setTimeout(function() {
+            window.location.href = "sidebar.html";
+        }, 7000);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="particle-container" id="particle-container">
+            <!-- Particles will be created dynamically by JavaScript -->
+        </div>
+        <div id="red-circle" class="circle"></div>
+        <div id="blue-circle" class="circle"></div>
+        <div id="green-circle" class="circle"></div>
+        <div id="yellow-circle" class="circle"></div>
+        <div class="logo-container">
+            <img src="AuroiTech_logo.png" alt="AuroiTech - Eye Care Digital Solutions" class="logo-image" id="logo-image">
+        </div>
+    </div>
+
+    <script>
+        function createAndPositionCircles() {
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            const centerX = containerRect.width / 2;
+            const centerY = containerRect.height / 2;
+            
+            // Size based on viewport dimensions
+            const circleSize = Math.min(containerRect.width, containerRect.height) * 0.6;
+            
+            const circles = [
+                { id: 'red-circle', offsetX: -40, offsetY: -40 },
+                { id: 'blue-circle', offsetX: 40, offsetY: 40 },
+                { id: 'green-circle', offsetX: -40, offsetY: 40 },
+                { id: 'yellow-circle', offsetX: 40, offsetY: -40 }
+            ];
+            
+            circles.forEach(circle => {
+                const element = document.getElementById(circle.id);
+                element.style.width = circleSize + 'px';
+                element.style.height = circleSize + 'px';
+                element.style.left = (centerX - circleSize/2 + circle.offsetX) + 'px';
+                element.style.top = (centerY - circleSize/2 + circle.offsetY) + 'px';
+            });
+        }
+        
+        function createParticles() {
+            const container = document.getElementById('particle-container');
+            const colors = ['red', 'blue', 'green', 'yellow'];
+            const particleCount = 60; // 15 particles per color
+            
+            for (let i = 0; i < particleCount; i++) {
+                const colorIndex = Math.floor(i / 15);
+                const color = colors[colorIndex];
+                
+                const particle = document.createElement('div');
+                particle.classList.add('particle', `${color}-particle`);
+                
+                // Random initial position
+                const randomX = Math.random() * window.innerWidth;
+                const randomY = Math.random() * window.innerHeight;
+                particle.style.left = randomX + 'px';
+                particle.style.top = randomY + 'px';
+                
+                // Random size
+                const size = 4 + Math.random() * 6;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Animation delay
+                const delay = 0.5 + Math.random() * 2;
+                const duration = 3 + Math.random() * 2;
+                
+                // Animation
+                particle.style.animation = `moveParticle${Math.floor(Math.random() * 4) + 1} ${duration}s ease-in-out ${delay}s forwards`;
+                
+                container.appendChild(particle);
+            }
+            
+            // Create keyframes for particles
+            const styleSheet = document.createElement('style');
+            styleSheet.innerHTML = `
+                @keyframes moveParticle1 {
+                    0% { transform: translate(0, 0); opacity: 0; }
+                    20% { opacity: 0.8; }
+                    100% { transform: translate(${randomMovement()}, ${randomMovement()}); opacity: 0; }
+                }
+                @keyframes moveParticle2 {
+                    0% { transform: translate(0, 0); opacity: 0; }
+                    20% { opacity: 0.8; }
+                    100% { transform: translate(${randomMovement()}, ${randomMovement()}); opacity: 0; }
+                }
+                @keyframes moveParticle3 {
+                    0% { transform: translate(0, 0); opacity: 0; }
+                    20% { opacity: 0.8; }
+                    100% { transform: translate(${randomMovement()}, ${randomMovement()}); opacity: 0; }
+                }
+                @keyframes moveParticle4 {
+                    0% { transform: translate(0, 0); opacity: 0; }
+                    20% { opacity: 0.8; }
+                    100% { transform: translate(${randomMovement()}, ${randomMovement()}); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(styleSheet);
+        }
+        
+        function randomMovement() {
+            const direction = Math.random() > 0.5 ? 1 : -1;
+            return (100 + Math.random() * 150) * direction + 'px';
+        }
+
+        // Create animation elements when page loads
+        window.onload = function() {
+            createAndPositionCircles();
+            createParticles();
+        };
+        
+        // Recreate on window resize
+        window.addEventListener('resize', function() {
+            const particleContainer = document.getElementById('particle-container');
+            particleContainer.innerHTML = '';
+            createAndPositionCircles();
+            createParticles();
+        });
+    </script>
+</body>
+</html>
