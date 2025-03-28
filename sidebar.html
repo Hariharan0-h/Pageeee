@@ -14,7 +14,8 @@
             font-family: 'Poppins', sans-serif;
         }
         
-        :root {
+        /*Blue Theme*/
+        /* :root {
             --primary: #4a6fa5;
             --primary-dark: #3a5a80;
             --primary-light: #6d8ebd;
@@ -30,7 +31,45 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.15);
+        } */
+
+        /*Gold Theme*/
+        :root {
+            --primary: #D4AF37;      
+            --primary-dark: #A68A28; 
+            --primary-light: #E6C65C; 
+            --secondary: #8A7426;    
+            --accent: #C0C0C0;      
+            --accent2: #A6A6A6;      
+            --accent3: #D9D9D9;      
+            --dark: #121212;         
+            --light: #F5F5F5;        
+            --border: #333333;       
+            --text: #1A1A1A;        
+            --text-light: #4D4D4D;   
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.25);
         }
+
+        /*Green Theme*/
+        /* :root {
+            --primary: #4A7C59;      
+            --primary-dark: #395D43;
+            --primary-light: #6A9478; 
+            --secondary: #2F4F33;   
+            --accent: #D9B504;      
+            --accent2: #D95204;      
+            --accent3: #04859D;    
+            --dark: #2D3730;         
+            --light: #F8FAF5;        
+            --border: #E2E8D9;       
+            --text: #3C4A41;         
+            --text-light: #718069;  
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 12px rgba(59, 77, 53, 0.1);
+            --shadow-hover: 0 6px 16px rgba(59, 77, 53, 0.15);
+        } */
         
         body {
             background-color: var(--light);
@@ -888,6 +927,62 @@
             color: var(--dark);
         }
 
+        /* Theme selector */
+        .theme-selector {
+            position: absolute;
+            top: 37px;
+            left: 310px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            padding: 10px 15px;
+            border-radius: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-option {
+            position: relative;
+        }
+
+        .theme-radio {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .theme-label {
+            display: block;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            color: white;
+            font-size: 0;
+            overflow: hidden;
+            text-indent: -9999px;
+        }
+
+        .theme-radio:checked + .theme-label {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 2px white;
+        }
+
+        .theme-blue {
+            background: linear-gradient(135deg, #4a6fa5, #2E4B99);
+        }
+
+        .theme-gold {
+            background: linear-gradient(135deg, #D4AF37, #8A7426);
+        }
+
+        .theme-green {
+            background: linear-gradient(135deg, #4A7C59, #2F4F33);
+        }
+
         /* Completion animation */
         @keyframes checkmark {
             0% { transform: scale(0); opacity: 0; }
@@ -1046,6 +1141,20 @@
                         <span class="id-value">UIN-7392</span>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="theme-selector">
+            <div class="theme-option">
+                <input type="radio" id="theme-blue" name="theme" value="blue" class="theme-radio">
+                <label for="theme-blue" class="theme-label theme-blue" data-tooltip="Blue Theme"></label>
+            </div>
+            <div class="theme-option">
+                <input type="radio" id="theme-gold" name="theme" value="gold" class="theme-radio" checked>
+                <label for="theme-gold" class="theme-label theme-gold" data-tooltip="Gold Theme"></label>
+            </div>
+            <div class="theme-option">
+                <input type="radio" id="theme-green" name="theme" value="green" class="theme-radio">
+                <label for="theme-green" class="theme-label theme-green" data-tooltip="Green Theme"></label>
             </div>
         </div>
         
@@ -1378,6 +1487,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Form sections and navigation
+            const themeOptions = document.querySelectorAll('.theme-radio');
+            const root = document.documentElement;
             const navItems = document.querySelectorAll('.nav-item');
             const contentSections = document.querySelectorAll('.content-section');
             const progressBar = document.getElementById('registration-progress');
@@ -1398,6 +1509,57 @@
                 'documents': true       // Optional section
             };
             
+            const themes = {
+                blue: {
+                    primary: '#4a6fa5',
+                    primaryDark: '#3a5a80',
+                    primaryLight: '#6d8ebd',
+                    secondary: '#2E4B99',
+                    accent: '#009DD9',
+                    accent2: '#E84E1B',
+                    accent3: '#009245',
+                    dark: '#2d3748',
+                    light: '#f8f9fa',
+                    border: '#e2e8f0',
+                    text: '#4a5568',
+                    textLight: '#718096',
+                    shadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                    shadowHover: '0 6px 16px rgba(0, 0, 0, 0.15)'
+                },
+                gold: {
+                    primary: '#D4AF37',
+                    primaryDark: '#A68A28',
+                    primaryLight: '#E6C65C',
+                    secondary: '#8A7426',
+                    accent: '#C0C0C0',
+                    accent2: '#A6A6A6',
+                    accent3: '#D9D9D9',
+                    dark: '#121212',
+                    light: '#F5F5F5',
+                    border: '#333333',
+                    text: '#1A1A1A',
+                    textLight: '#4D4D4D',
+                    shadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    shadowHover: '0 6px 16px rgba(0, 0, 0, 0.25)'
+                },
+                green: {
+                    primary: '#4A7C59',
+                    primaryDark: '#395D43',
+                    primaryLight: '#6A9478',
+                    secondary: '#2F4F33',
+                    accent: '#D9B504',
+                    accent2: '#D95204',
+                    accent3: '#04859D',
+                    dark: '#2D3730',
+                    light: '#F8FAF5',
+                    border: '#E2E8D9',
+                    text: '#3C4A41',
+                    textLight: '#718069',
+                    shadow: '0 4px 12px rgba(59, 77, 53, 0.1)',
+                    shadowHover: '0 6px 16px rgba(59, 77, 53, 0.15)'
+                }
+            };
+
             // Track completion progress
             let completedSections = 0;
             const totalSections = Object.keys(formValidation).length;
@@ -1408,6 +1570,47 @@
                 progressBar.style.width = `${progress}%`;
             }
             
+            function applyTheme(themeName) {
+                const theme = themes[themeName];
+                
+                // Set CSS variables
+                root.style.setProperty('--primary', theme.primary);
+                root.style.setProperty('--primary-dark', theme.primaryDark);
+                root.style.setProperty('--primary-light', theme.primaryLight);
+                root.style.setProperty('--secondary', theme.secondary);
+                root.style.setProperty('--accent', theme.accent);
+                root.style.setProperty('--accent2', theme.accent2);
+                root.style.setProperty('--accent3', theme.accent3);
+                root.style.setProperty('--dark', theme.dark);
+                root.style.setProperty('--light', theme.light);
+                root.style.setProperty('--border', theme.border);
+                root.style.setProperty('--text', theme.text);
+                root.style.setProperty('--text-light', theme.textLight);
+                root.style.setProperty('--shadow', theme.shadow);
+                root.style.setProperty('--shadow-hover', theme.shadowHover);
+                
+                // Save theme preference to localStorage
+                localStorage.setItem('preferredTheme', themeName);
+                
+                // Show theme change toast
+                showToast('info', 'Theme Changed', `The ${themeName.charAt(0).toUpperCase() + themeName.slice(1)} theme has been applied.`);
+            }
+
+            // Add change event listeners to theme options
+            themeOptions.forEach(option => {
+                option.addEventListener('change', function() {
+                    applyTheme(this.value);
+                });
+            });
+
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('preferredTheme');
+            if (savedTheme) {
+                // Apply saved theme
+                document.getElementById(`theme-${savedTheme}`).checked = true;
+                applyTheme(savedTheme);
+            }
+
             // Show a toast notification
             function showToast(type, title, message) {
                 const toast = document.createElement('div');
